@@ -63,7 +63,7 @@ import RNAuthz from 'react-native-authz';
 
     login() {
         RNAuthz.isAvailable().then(() => {
-            RNAuthz.open("http://example/authz?callback=app://succes").catch(error => console.log(error));
+            RNAuthz.open("http://example/authz?callback=app://success").catch(error => console.log(error));
         });
     }
 ...
