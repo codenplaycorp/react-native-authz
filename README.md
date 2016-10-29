@@ -40,6 +40,31 @@
 import RNAuthz from 'react-native-authz';
 
 // TODO: What do with the module?
-RNAuthz;
+...
+    componentDidMount() {
+        RNAuthz.addEventListener('onDismiss', this.handleToken);
+        RNAuthz.addEventListener('onShow', this.handleLogin);
+    }
+
+    componentWillUnmount() {
+        RNAuthz.removeEventListener('onDismiss', this.handleToken);
+        RNAuthz.removeEventListener('onShow', this.handleLogin);
+    }
+
+    handleLogin() {
+        console.log('startup');
+    }
+
+    handleToken(e) {
+        const token = e.url.split('#')[1].split('=')[1];
+
+        console.log(token);
+    }
+
+    login() {
+        RNAuthz.isAvailable().then(() => {
+            RNAuthz.open("http://example/authz?callback=app://succes").catch(error => console.log(error));
+        });
+    }
+...
 ```
-  
