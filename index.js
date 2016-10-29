@@ -19,12 +19,25 @@ class RNAuthzModule {
         RNAuthz.dismiss();
     }
 
+    static hasSupportInAppBrowserTab() {
+        return new Promise((resolve, reject) => {
+            RNAuthz.hasSupportInAppBrowserTab((error) => {
+                if (error) {
+                    return resolve(false);
+                }
+
+                resolve(true);
+            });
+        });
+    }
+
     static isAvailable() {
         return new Promise((resolve, reject) => {
             RNAuthz.isAvailable((error) => {
                 if (error) {
                     return reject(error);
                 }
+
                 resolve(true);
             });
         });

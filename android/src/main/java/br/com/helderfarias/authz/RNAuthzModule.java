@@ -85,6 +85,16 @@ public class RNAuthzModule extends ReactContextBaseJavaModule implements Activit
         this.eventManager.send("InAppBrowserTabOnDismiss");
     }
 
+
+    @ReactMethod
+    public void hasSupportInAppBrowserTab(Callback error) {
+        String packageName = CustomTabsHelper.getPackageNameToUse(getReactApplicationContext());
+
+        boolean supports = (packageName == null || packageName.isEmpty());
+
+        error.invoke(!supports);
+    }
+
     @ReactMethod
     public void isAvailable(Callback error) {
         boolean ok = this.bootstrap();

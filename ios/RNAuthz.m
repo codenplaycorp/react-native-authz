@@ -15,7 +15,7 @@ RCT_EXPORT_MODULE();
     return dispatch_get_main_queue();
 }
 
-- (void) doCloseAfterLoginOnNotification:(NSNotification *) notification 
+- (void) doCloseAfterLoginOnNotification:(NSNotification *) notification
 {
     NSLog(@"[SafariView] SafariView dismissed.");
 
@@ -24,14 +24,14 @@ RCT_EXPORT_MODULE();
 }
 
 -(void) safariViewControllerDidFinish:(nonnull SFSafariViewController *)controller
-{ 
+{
     NSLog(@"[SafariView] SafariView dismissed.");
 
     [controller dismissViewControllerAnimated: true completion:nil];
     [self.bridge.eventDispatcher sendAppEventWithName:@"InAppBrowserTabOnDismiss" body:nil];
 }
 
-RCT_EXPORT_METHOD(openURL:(NSString *)urlString callback:(RCTResponseSenderBlock)callback) 
+RCT_EXPORT_METHOD(openURL:(NSString *)urlString callback:(RCTResponseSenderBlock)callback)
 {
     NSLog(@"[SafariView] SafariView opened.");
 
@@ -49,7 +49,7 @@ RCT_EXPORT_METHOD(openURL:(NSString *)urlString callback:(RCTResponseSenderBlock
         addObserver:self
         selector:@selector(doCloseAfterLoginOnNotification:)
         name:@"AuthZRedirectNotification"
-        object:nil];    
+        object:nil];
 }
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
@@ -68,6 +68,11 @@ RCT_EXPORT_METHOD(dismiss)
     NSLog(@"[SafariView] SafariView dismissed.");
 
     [self safariViewControllerDidFinish:self.safariView];
+}
+
+RCT_EXPORT_METHOD(hasSupportInAppBrowserTab:(RCTResponseSenderBlock)callback)
+{
+    return callback(@[[NSNull null], @true]);
 }
 
 @end
